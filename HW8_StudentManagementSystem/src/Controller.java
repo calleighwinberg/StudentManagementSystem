@@ -3,7 +3,7 @@ import files.FileInfoReader;
 public class Controller {
 	
 	//create instance of FileInfoReader so we can access files and arrays 
-	FileInfoReader infoReader = new FileInfoReader();
+	FileInfoReader fileInfoReader = new FileInfoReader();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -11,9 +11,9 @@ public class Controller {
 		//create isntance of controller class 
 		Controller ct = new Controller();
 		
+		ct.fileInfoReader.readProfessorFile("profInfo.txt");
 		
-		
-		
+		System.out.println(ct.fileInfoReader.getProfessorInfo());
 
 	}
 	
@@ -22,7 +22,7 @@ public class Controller {
 	 * Prints a list of all courses
 	 * */
 	public void printAllCourses() {
-		System.out.println(infoReader.getCourseInfo()); // getCourseInfo returns the Array List, which when called for
+		System.out.println(fileInfoReader.getCourseInfo()); // getCourseInfo returns the Array List, which when called for
 														// printing calls the toString method in Course
 	}
 

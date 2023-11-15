@@ -5,9 +5,11 @@ public class Professor extends User {
 	static final String userType = "Professor";
 	
 
-	public Professor() {
+	public Professor(String profInfo) {
 		
 		super(userType);
+		
+		
 
 	}
 

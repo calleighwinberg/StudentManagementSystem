@@ -1,9 +1,16 @@
 package files;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import courses.Courses;
+import roles.Admin;
+import roles.Professor;
+import roles.Student;
 
 
 public class FileInfoReader {
@@ -44,12 +51,49 @@ public class FileInfoReader {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public static ArrayList<Professor> readProfessorFile(String fileName) throws FileNotFoundException {
+	public void readProfessorFile(String fileName) {
 		
+		//create file object
+		File file = new File(fileName);
+		
+		//define file reader
+		FileReader fileReader = null;
+		
+		//define buffered reader
+		BufferedReader bufferedReader = null;
+		
+		try {
+			fileReader = new FileReader(file);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			String line;
+			
+			while ((line = bufferedReader.readLine()) != null) {
+				
+				//create a professor object initialized with the string of info from the file
+				Professor professor = new Professor(line);
+				
+				//add the professor to the professorInfo array
+				professorInfo.add(professor);
+			}
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+
+
 	}
 	
 	
-	public static ArrayList<Courses> readCoursesFile(String fileName) throws FileNotFoundException {
+	public static ArrayList<Courses> readCoursesFile(String fileName) {
 		
 		Courses course;
 		

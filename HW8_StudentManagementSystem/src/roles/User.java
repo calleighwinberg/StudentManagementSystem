@@ -50,10 +50,10 @@ public class User {
 	
 	/**
 	 * toString here will be overridden in every class that extends user
-	 */
+	 *
 	@Override
 	public String toString() {
 		return this.name;
-	}
+	}*/
 
 }
