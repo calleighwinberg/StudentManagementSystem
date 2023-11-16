@@ -51,7 +51,7 @@ public class FileInfoReader {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public void readProfessorFile(String fileName) {
+	public void readFile(String fileName) {
 		
 		//create file object
 		File file = new File(fileName);
@@ -70,12 +70,29 @@ public class FileInfoReader {
 			
 			while ((line = bufferedReader.readLine()) != null) {
 				
-				//create a professor object initialized with the string of info from the file
-				Professor professor = new Professor(line);
+				if(fileName.equals("profInfo.txt")) {
+					
+					//create a professor object initialized with the string of info from the file
+					Professor professor = new Professor(line);
+					
+					
+					//add the professor to the professorInfo array
+					professorInfo.add(professor);
+					
+				}
+				
+				else if(fileName.equals("courseInfo.txt")) {
+					
+					//create a course object initialized with the string of info from the file
+					Courses course = new Courses(line);
+					
+					
+					//add the professor to the professorInfo array
+					courseInfo.add(course);
+					
+				}
 				
 				
-				//add the professor to the professorInfo array
-				professorInfo.add(professor);
 			}
 			
 			
@@ -95,7 +112,7 @@ public class FileInfoReader {
 	
 	
 	
-public void readCourseFile(String fileName) {
+	/*public void readCourseFile(String fileName) {
 		
 		//create file object
 		File file = new File(fileName);
@@ -132,7 +149,7 @@ public void readCourseFile(String fileName) {
 		}
 		
 
-	}
+	}*/
 	
 
 

@@ -2,7 +2,7 @@ package roles;
 
 import courses.Courses;
 
-public class User {
+public abstract class User {
 	
 	//instance variables 
 
@@ -42,7 +42,7 @@ public class User {
 	}
 	
 	
-	void viewCourseInfo() {
+	void viewAllCourseInfo() {
 		
 		//something like call this.courseObj.method and have it return a collection with all courses and their info. 
 	}
@@ -50,11 +50,11 @@ public class User {
 	
 	/**
 	 * toString here will be overridden in every class that extends user
-	 *
+	 */
 	@Override
 	public String toString() {
-		return this.name;
-	}*/
+		return (this.id + " " + this.name);
+	}
 	
 
 	//getters and setters

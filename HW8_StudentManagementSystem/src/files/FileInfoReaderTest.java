@@ -14,8 +14,9 @@ class FileInfoReaderTest {
 		
 		this.fr = new FileInfoReader();
 		
-		this.fr.readProfessorFile("profInfo.txt");
-		this.fr.readCourseFile("courseInfo.txt");
+		this.fr.readFile("profInfo.txt");
+		this.fr.readFile("courseInfo.txt");
+		//this.fr.readCourseFile("courseInfo.txt");
 	}
 
 	@Test

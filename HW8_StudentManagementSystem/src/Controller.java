@@ -1,9 +1,25 @@
 import files.FileInfoReader;
 
+import java.util.List;
+
+import courses.Courses;
+import roles.Admin;
+import roles.Professor;
+import roles.Student;
+
 public class Controller {
 	
 	//create instance of FileInfoReader so we can access files and arrays 
 	FileInfoReader fileInfoReader = new FileInfoReader();
+	
+	
+	//these are isntance variables that prof has:
+	Student student;
+	Professor prof;
+	Admin admin;
+	List<Courses> courseList;
+	List<Professor> profList;
+	List<Admin> adminList;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -11,13 +27,13 @@ public class Controller {
 		//create isntance of controller class 
 		Controller ct = new Controller();
 		
-		/*ct.fileInfoReader.readProfessorFile("profInfo.txt");
+		ct.fileInfoReader.readFile("profInfo.txt");
 		System.out.println(ct.fileInfoReader.getProfessorInfo());
 		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getUserType());
 		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getName());
 		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getId());
 		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getUsername());
-		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getPassword());*/
+		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getPassword());
 
 	}
 	
