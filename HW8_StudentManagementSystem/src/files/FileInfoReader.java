@@ -73,6 +73,7 @@ public class FileInfoReader {
 				//create a professor object initialized with the string of info from the file
 				Professor professor = new Professor(line);
 				
+				
 				//add the professor to the professorInfo array
 				professorInfo.add(professor);
 			}
@@ -93,21 +94,46 @@ public class FileInfoReader {
 	}
 	
 	
-	public static ArrayList<Courses> readCoursesFile(String fileName) {
+	
+public void readCourseFile(String fileName) {
 		
-		Courses course;
+		//create file object
+		File file = new File(fileName);
 		
-		ArrayList<String> coursesString = new ArrayList<String>();
+		//define file reader
+		FileReader fileReader = null;
 		
-		//i'm thinking we just read each string, create an object of the courses class with string in the constructor, and then do 
-		//parsing there. 
+		//define buffered reader
+		BufferedReader bufferedReader = null;
 		
-		ArrayList<Courses> courses = new ArrayList<Courses>();
+		try {
+			fileReader = new FileReader(file);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			String line;
+			
+			while ((line = bufferedReader.readLine()) != null) {
+				
+				//create a course object initialized with the string of info from the file
+				Courses course = new Courses(line);
+				
+				
+				//add the professor to the professorInfo array
+				courseInfo.add(course);
+			}
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
-		return courses;
-		
+
 	}
+	
 
 
 	/**

@@ -11,11 +11,22 @@ public class Controller {
 		//create isntance of controller class 
 		Controller ct = new Controller();
 		
-		ct.fileInfoReader.readProfessorFile("profInfo.txt");
-		
+		/*ct.fileInfoReader.readProfessorFile("profInfo.txt");
 		System.out.println(ct.fileInfoReader.getProfessorInfo());
+		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getUserType());
+		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getName());
+		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getId());
+		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getUsername());
+		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getPassword());*/
 
 	}
+	
+	/**
+	 * a professor logs in and sees menu
+	 * 
+	 * professor.viewgivenCourse(Course Object);
+	 * courseObject.viewCourse(int professor.getID)
+	 */
 	
 	
 	/**
