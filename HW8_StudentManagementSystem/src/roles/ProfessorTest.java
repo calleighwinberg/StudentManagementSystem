@@ -25,13 +25,12 @@ class ProfessorTest {
 		
 		this.fr.readFile("profInfo.txt");
 		this.fr.readFile("courseInfo.txt");
-		//this.fr.readCourseFile("courseInfo.txt");
 
 		
 	}
 
 	@Test
-	void test() {
+	void testViewGivenCourses() {
 		
 		//prof Greenberg test 
 		ArrayList<Courses> profGreenbergCourses = new ArrayList<Courses>();
@@ -40,7 +39,9 @@ class ProfessorTest {
 		
 		assertEquals(2, profGreenbergCourses.size());
 		
-		System.out.println(profGreenbergCourses);
+		//System.out.println(fr.getProfessorInfo().get(0));
+		
+		
 
 		
 	

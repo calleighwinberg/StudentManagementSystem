@@ -1,10 +1,20 @@
 package roles;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import courses.Courses;
+import files.FileInfoReader;
+
 public class Student extends User {
 
 	static final String userType = "Student";
 	
 	private String pastCoursesAndGrades;
+	
+	private ArrayList<Courses> enrolledCourses;
 	
 
 	public Student(String studentInfo) {
@@ -27,13 +37,72 @@ public class Student extends User {
 		
 
 	}
+	
+	boolean okToAddCourse(FileInfoReader fr, String courseID) {
+		
+		Courses thisCourse = this.returnCourseObjFromID(fr, courseID);
+		
+		if (thisCourse == null) {
+			
+			System.out.println("The course you selected does not exist.");
+			return false;
+			
+		} 
+		
+		for(Courses course : this.enrolledCourses) {
+			if(thisCourse.timeConflict(course)) {
+				System.out.println("The course you selected has a time conlfict with " + course);
+				return false;
+			}
+		}
+		
+		
+		 boolean timeConflict; //give the enrooled courses array and the courseID to a function in courses that compares the two 
+		
+		return false;
+	}
+	
+	
+	
+	
+	void addCourse(FileInfoReader fr, String courseID) {
+		
+		
+	}
+	
 
 
 	/**
-	 * @return the pastCoursesAndGrades
+	 * @return returns a HashMap of the past coruses and their grades 
 	 */
-	public String getPastCoursesAndGrades() {
-		return pastCoursesAndGrades;
+	public Map<String, String>  getPastCoursesAndGrades(FileInfoReader fr) {
+		
+		//create a map to store the course ID/name and letter grade in 
+		Map<String, String> courseAndGrade = new HashMap<String, String>();
+		
+		//take the course string (which contains all course/grades) and split it based on commas
+		String array[] = this.pastCoursesAndGrades.trim().split(",");
+		
+		//for each course in the array, search for the course ID in the courses array until a match is found.
+		for(String course : array) {
+			
+			String arrayCourse[] = course.trim().split(":");
+			
+			for(Courses courseObj : fr.getCourseInfo()) {
+				
+				if(arrayCourse[0].trim().equals(courseObj.getCourseID())) {
+					
+					//concatenate the course ID and the course name as the key. Grade will be the value
+					courseAndGrade.put(arrayCourse[0].trim() + " " + courseObj.getCourseName(), arrayCourse[1].trim());
+				}
+			}	
+		}
+		
+		
+		//String coursesAndGrades = ("Here are the courses you have already taken, with your grade in a letter format \n" +
+		//"Grade for " + array[0].trim() + "\n" + "Grade for " + array[1].trim());
+		
+		return courseAndGrade;
 	}
 
 

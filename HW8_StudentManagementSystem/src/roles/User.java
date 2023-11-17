@@ -1,6 +1,7 @@
 package roles;
 
 import courses.Courses;
+import files.FileInfoReader;
 
 public abstract class User {
 	
@@ -32,7 +33,7 @@ public abstract class User {
 	private String userType;
 	
 	
-	Courses courseObj;
+	//Courses courseObj;
 	
 	
 	//constructor 
@@ -45,6 +46,18 @@ public abstract class User {
 	void viewAllCourseInfo() {
 		
 		//something like call this.courseObj.method and have it return a collection with all courses and their info. 
+	}
+	
+	
+	Courses returnCourseObjFromID(FileInfoReader fr, String id) {
+		
+		for(Courses course: fr.getCourseInfo()) {
+			
+			if(course.getCourseID().equals(id)) {
+				return course;
+			}		
+		}
+		return null;
 	}
 	
 	

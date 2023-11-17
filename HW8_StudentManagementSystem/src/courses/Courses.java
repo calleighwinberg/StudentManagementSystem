@@ -1,5 +1,9 @@
 package courses;
 
+import java.util.ArrayList;
+
+import files.FileInfoReader;
+
 public class Courses {
 	
 	//instance variables 
@@ -8,9 +12,9 @@ public class Courses {
 	
 	private String courseName;
 	
-	private String courseStart;
+	private int courseStart;
 	
-	private String courseEnd;
+	private int courseEnd;
 	
 	private String courseDays;
 	
@@ -21,6 +25,8 @@ public class Courses {
 	private int lecturerID;
 	
 	private int numStudentsEnrolled = 0;
+	
+	FileInfoReader fr = new FileInfoReader();
 	
 	/**
 	 * constructor 1 takes a string and parses the info into separate parts. Then initializes each instance variable with the info
@@ -56,7 +62,10 @@ public class Courses {
 		
 		this.courseName = courseName;
 		
-		this.courseStart = courseStart; ///and so on 
+		this.courseStart = this.setCourseStart(courseStart); 
+		
+		this.courseEnd = this.setCourseEnd(courseEnd);
+		///and so on 
 		
 	}
 	
@@ -74,13 +83,42 @@ public class Courses {
 	}
 	
 	
+	public boolean timeConflict(Courses course) {
+		
+		//for(Courses course : otherCourses) {
+			
+			double duration = course.courseEnd - course.courseStart;
+			
+			if(this.courseStart == course.courseStart) {
+				return true;
+				
+			} else if(this.courseStart > course.courseStart) {
+				
+				if(course.courseEnd > this.courseStart) {
+					return true;	
+				}
+				
+			} else if(this.courseStart < course.courseStart) {
+				
+				if(this.courseEnd > course.courseStart) {
+					return true;
+				}
+			}
+			
+			
+		//}
+		
+		return false;
+	}
+	
+	
 	
 	public String toString() {
 		
 		//return a string in the format CIT590 | Programming Languages, 16:30-18:00 on MW, with course capacity 110, students: 0, 
 		//lecturer: Prof Brandon 
 		
-		return (this.courseID + "|" + this.courseName + ", " + this.courseStart + "-" + this.courseEnd + " on " + this.courseDays + 
+		return (this.courseID + "|" + this.courseName + ", " + this.getCourseStart() + "-" + this.getCourseEnd() + " on " + this.courseDays + 
 				", with course capacity: " + this.courseCapacity + ", students: " + this.numStudentsEnrolled + ", lecturer: Professor " + 
 				this.courseProfessor);
 	}
@@ -124,15 +162,42 @@ public class Courses {
 	 * @return the courseStart
 	 */
 	public String getCourseStart() {
-		return courseStart;
+		
+		int minutes = this.courseStart % 60;
+		int hours = (this.courseStart - minutes) / 60;
+		
+		String minutesString = "" + minutes;
+		String hoursString = "" + hours;
+		
+		if(hours < 10) {
+			hoursString = "0" + hours + ":";
+		}
+		if(minutes < 10) {
+			minutesString = "0" + minutes + ":";
+		}
+		if(minutes == 0) {
+			minutesString = "00";
+		}
+		
+		return (hoursString + ":" + minutesString);
 	}
 
 
 	/**
 	 * @param courseStart the courseStart to set
 	 */
-	public void setCourseStart(String courseStart) {
-		this.courseStart = courseStart;
+	public int setCourseStart(String courseStart) {
+		
+		String[] array = courseStart.split(":");
+		
+		int hour = Integer.parseInt(array[0]);
+		int minute = Integer.parseInt(array[1]);
+		
+		int totalTime = (hour*60) + minute;
+
+		this.courseStart = totalTime;
+		
+		return totalTime;
 	}
 
 
@@ -140,15 +205,45 @@ public class Courses {
 	 * @return the courseEnd
 	 */
 	public String getCourseEnd() {
-		return courseEnd;
+		
+		int minutes = this.courseEnd % 60;
+		int hours = (this.courseEnd - minutes) / 60;
+		
+		String minutesString = "" + minutes;
+		String hoursString = "" + hours;
+		
+		if(hours < 10) {
+			hoursString = "0" + hours + ":";
+		}
+		if(minutes < 10) {
+			minutesString = "0" + minutes + ":";
+		}
+		if(minutes == 0) {
+			minutesString = "00";
+		}
+		
+		return (hoursString + ":" + minutesString);
 	}
+		
+	
 
 
 	/**
 	 * @param courseEnd the courseEnd to set
 	 */
-	public void setCourseEnd(String courseEnd) {
-		this.courseEnd = courseEnd;
+	public int setCourseEnd(String courseEnd) {
+		
+		String[] array = courseEnd.split(":");
+		
+		int hour = Integer.parseInt(array[0]);
+		int minute = Integer.parseInt(array[1]);
+		
+		int totalTime = (hour*60) + minute;
+
+		this.courseEnd = totalTime;
+		
+		return totalTime;
+		
 	}
 
 
