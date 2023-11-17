@@ -91,6 +91,24 @@ public class FileInfoReader {
 					courseInfo.add(course);
 					
 				}
+				else if(fileName.equals("studentInfo.txt")) {
+					
+					//create a course object initialized with the string of info from the file
+					Student student = new Student(line);
+					
+					
+					//add the professor to the professorInfo array
+					studentInfo.add(student);
+					
+				}
+				
+				else if(fileName.equals("adminInfo.txt")) {
+					
+					Admin admin = new Admin(line);
+					
+					//add the professor to the professorInfo array
+					adminInfo.add(admin);
+				}
 				
 				
 			}

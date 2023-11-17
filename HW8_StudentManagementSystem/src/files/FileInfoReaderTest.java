@@ -16,29 +16,44 @@ class FileInfoReaderTest {
 		
 		this.fr.readFile("profInfo.txt");
 		this.fr.readFile("courseInfo.txt");
-		//this.fr.readCourseFile("courseInfo.txt");
+		this.fr.readFile("studentInfo.txt");
+		this.fr.readFile("adminInfo.txt");
 	}
 
 	@Test
-	void testReadProfessorFile() {
+	void testReadFile() {
 		
+		//test loading professors 
 		assertEquals(32, this.fr.getProfessorInfo().size());
 		
 		assertEquals("Professor", this.fr.getProfessorInfo().get(0).getUserType());
 		
 		assertEquals("Clayton Greenberg", this.fr.getProfessorInfo().get(0).getName());
 		
+		
+		//test loading courses 
+		assertEquals(50, this.fr.getCourseInfo().size());
+		//System.out.println(this.fr.getCourseInfo().size());
+
+		assertEquals("CIT590", this.fr.getCourseInfo().get(0).getCourseID());
+		
+		
+		//test loading admin 
+		assertEquals(3, this.fr.getAdminInfo().size());
+		//System.out.println(this.fr.getAdminInfo().size());
+		assertEquals("admin01", this.fr.getAdminInfo().get(0).getUsername());
+		
+		//test loading student into
+		assertEquals(2, this.fr.getStudentInfo().size());
+		assertEquals("StudentName1", this.fr.getStudentInfo().get(0).getName());
+		
 	}
 	
 	@Test
 	void testReadCourseFile() {
-		
-		assertEquals(50, this.fr.getCourseInfo().size());
-		//System.out.println(this.fr.getCourseInfo().size());
-
-		
-		assertEquals("CIT590", this.fr.getCourseInfo().get(0).getCourseID());
-		
+	
+	
 	}
+		
 
 }
