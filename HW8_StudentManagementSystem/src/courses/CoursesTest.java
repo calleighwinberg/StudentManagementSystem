@@ -90,5 +90,20 @@ class CoursesTest {
 		
 		
 	}
+	
+	
+	@Test
+	void testEquals() {
+		
+		//test creating a course obj for 590 and then calling the function for another course obj. the two objs should reference the same object 
+		Courses course1 = fr.getCourseInfo().get(0);
+		Courses course2 = fr.getCourseInfo().get(0);
+		Courses course3 = fr.getCourseInfo().get(1);
+		assertTrue(course1.equals(course2));
+		assertFalse(course1.equals(course3));
+		course3.setCourseID(course1.getCourseID());
+		assertTrue(course1.equals(course3));
+	
+	}
 
 }

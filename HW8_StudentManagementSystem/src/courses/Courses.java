@@ -3,6 +3,7 @@ package courses;
 import java.util.ArrayList;
 
 import files.FileInfoReader;
+import roles.User;
 
 public class Courses {
 	
@@ -84,10 +85,7 @@ public class Courses {
 	
 	
 	public boolean timeConflict(Courses course) {
-		
-		//for(Courses course : otherCourses) {
-			
-			double duration = course.courseEnd - course.courseStart;
+
 			
 			if(this.courseStart == course.courseStart) {
 				return true;
@@ -320,6 +318,14 @@ public class Courses {
 		this.courseProfessor = courseProfessor;
 	}
 	
+	
+	@Override
+	public boolean equals(Object o) {
+		
+		Courses otherCourse = (Courses) o;
+		
+		return this.courseID.equals(otherCourse.getCourseID());
+	}
 	
 	
 	

@@ -152,5 +152,15 @@ public abstract class User {
 	}
 	
 	
+	
+	@Override
+	public boolean equals(Object o) {
+		
+		User otherUser = (User) o;
+		
+		return this.id.equals(otherUser.id);
+	}
+	
+	
 
 }

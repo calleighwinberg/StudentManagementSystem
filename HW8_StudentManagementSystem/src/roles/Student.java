@@ -56,10 +56,14 @@ public class Student extends User {
 			}
 		}
 		
+		for(Courses course : this.enrolledCourses) {
+			if(thisCourse.equals(course)) {
+				System.out.println("The course you selected is already in your list");
+				return false;
+			}
+		}
 		
-		 boolean timeConflict; //give the enrooled courses array and the courseID to a function in courses that compares the two 
-		
-		return false;
+		return true;
 	}
 	
 	
