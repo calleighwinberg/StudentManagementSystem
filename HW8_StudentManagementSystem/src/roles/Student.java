@@ -14,7 +14,7 @@ public class Student extends User {
 	
 	private String pastCoursesAndGrades;
 	
-	private ArrayList<Courses> enrolledCourses;
+	private ArrayList<Courses> enrolledCourses = new ArrayList<Courses>();
 	
 
 	public Student(String studentInfo) {
@@ -50,19 +50,26 @@ public class Student extends User {
 		} 
 		
 		for(Courses course : this.enrolledCourses) {
-			if(thisCourse.timeConflict(course)) {
-				System.out.println("The course you selected has a time conlfict with " + course);
-				return false;
-			}
-		}
-		
-		for(Courses course : this.enrolledCourses) {
 			if(thisCourse.equals(course)) {
 				System.out.println("The course you selected is already in your list");
 				return false;
 			}
 		}
 		
+		for(Courses course : this.enrolledCourses) {
+			if(thisCourse.timeConflict(course)) {
+				System.out.println("The course you selected has a time conflict with " + course.getCourseID() + " " + course.getCourseName());
+				return false;
+			}
+		}
+		
+		if(!(Integer.parseInt(thisCourse.getCourseCapacity()) > thisCourse.getNumStudentsEnrolled())) {
+			
+			System.out.println("Sorry, " + thisCourse.getCourseID() + " " + thisCourse.getCourseName() + " is full.");
+			
+			return false;
+		}
+
 		return true;
 	}
 	
@@ -71,13 +78,24 @@ public class Student extends User {
 	
 	void addCourse(FileInfoReader fr, String courseID) {
 		
-		
+		if(this.okToAddCourse(fr, courseID)) {
+			
+			Courses course = this.returnCourseObjFromID(fr, courseID);
+
+			System.out.println(this.getEnrolledCourses().size());
+			
+			this.enrolledCourses.add(course);
+			
+			course.setNumStudentsEnrolled(course.getNumStudentsEnrolled() + 1);
+
+		}
+
 	}
 	
 
 
 	/**
-	 * @return returns a HashMap of the past coruses and their grades 
+	 * @return returns a HashMap of the past courses and their grades 
 	 */
 	public Map<String, String>  getPastCoursesAndGrades(FileInfoReader fr) {
 		
@@ -116,6 +134,22 @@ public class Student extends User {
 	public void setPastCoursesAndGrades(String pastCoursesAndGrades) {
 		this.pastCoursesAndGrades = pastCoursesAndGrades;
 	}
+
+	/**
+	 * @return the enrolledCourses
+	 */
+	public ArrayList<Courses> getEnrolledCourses() {
+		return enrolledCourses;
+	}
+
+	/**
+	 * @param enrolledCourses the enrolledCourses to set
+	 */
+	public void setEnrolledCourses(ArrayList<Courses> enrolledCourses) {
+		this.enrolledCourses = enrolledCourses;
+	}
+	
+	
 	
 
 
