@@ -2,6 +2,7 @@ import files.FileInfoReader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import courses.Courses;
 import roles.Admin;
@@ -28,13 +29,10 @@ public class Controller {
 		//create isntance of controller class 
 		Controller ct = new Controller();
 		
-		ct.fileInfoReader.readFile("profInfo.txt");
-		System.out.println(ct.fileInfoReader.getProfessorInfo());
-		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getUserType());
-		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getName());
-		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getId());
-		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getUsername());
-		System.out.println(ct.fileInfoReader.getProfessorInfo().get(0).getPassword());
+		Scanner scanner = new Scanner(System.in);
+		
+		
+
 
 	}
 	
@@ -45,26 +43,64 @@ public class Controller {
 	 * courseObject.viewCourse(int professor.getID)
 	 */
 	
+
 	
-	if(input == 1) {
-		this.login(fr, fr.getStudentInfo());
-	} 
-	
-	else if(input == 2) {
+	private void initialLogin(Scanner scan) {
 		
+		
+		
+		if(input == 1) {
+			this.loginStudent(fr, fr.getStudentInfo());
+		} 
+		
+		else if(input == 2) {
+			
+		}
+		
+		else if(input == 3) {
+			
+			//create hasmap of usernames and passwords for student 
+			//for prof
+			//foor user 
+			
+			this.loginAdmin(fr, fr.getAdminInfo());
+			
+		}
 	}
 	
 	
-	private void login(FileInfoReader fr2, ArrayList<Student> studentInfo) {
-		// TODO Auto-generated method stub
+	private void loginStudent(FileInfoReader fr2, ArrayList<Student> studentInfo) {
+		// can i pass in generic arrayList<Object> and thens et to either stufent prof or admin 
 		
 		//promt for username
 		
-		for(Student student : studentInfo) {
+		
+		
+		for(Student student : studentInfo)) {
 			if(student.getUsername().equals(usernameInput)) {
 				
 				//promt for pass
 				if(student.getPassword().equals(passwordInput)) {
+					
+					//call method for student experience 
+				}
+			}
+		}
+		
+	}
+	
+	private void loginAdmin(FileInfoReader fr2, ArrayList<Admin> adminInfo) {
+		// can i pass in generic arrayList<Object> and thens et to either stufent prof or admin 
+		
+		//promt for username
+		
+		
+		
+		for(Admin admin : adminInfo) {
+			if(student.getUsername().equals(usernameInput)) {
+				
+				//promt for pass
+				if(admin.getPassword().equals(passwordInput)) {
 					
 					//call method for student experience 
 				}
