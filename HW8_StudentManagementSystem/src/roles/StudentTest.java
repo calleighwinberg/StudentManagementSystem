@@ -67,6 +67,8 @@ class StudentTest {
 		Student student2 = fr.getStudentInfo().get(1);
 		fr.getCourseInfo().get(0).setCourseCapacity("1");
 		assertFalse(student2.okToAddCourse(fr, "CIT590"));
+		
+		//student1.viewEnrolledCourses();
 
 		
 
@@ -83,9 +85,42 @@ class StudentTest {
 		assertEquals(1, fr.getCourseInfo().get(1).getNumStudentsEnrolled());
 		assertEquals(2, student1.getEnrolledCourses().size());
 		assertEquals(fr.getCourseInfo().get(0), student1.getEnrolledCourses().get(0));
+
+	}
+	
+	@Test 
+	void testViewEnrolledCourses() {
 		
+		//i'm not sure how to test this one since all it does is print the enrolledCourses array 
+	}
+	
+	
+	@Test 
+	void testDropCourse() {
 		
+		//System.out.println("TestDropCourse");
 		
+		//add three courses for student1. Confirm that the number of courses == 3. 
+		Student student1 = fr.getStudentInfo().get(0);
+		student1.addCourse(fr, "CIT590");
+		student1.addCourse(fr, "CIT591");
+		student1.addCourse(fr, "CIT592");
+		assertEquals(3, student1.getEnrolledCourses().size());
+		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(0)));		
+		//Drop a course and confirm the number of courses == 2 and enrolledCourses no longer contains that course 
+		student1.dropCourse(fr, "CIT590");
+		assertEquals(2, student1.getEnrolledCourses().size());
+		assertFalse(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(0)));
+		
+		//check that the number of students enrolled for that class decrements 
+		assertEquals(0, fr.getCourseInfo().get(0).getNumStudentsEnrolled());
+		
+		//test dropping a course that is not in the enrolledCourses. The size of the array should not change 
+		student1.dropCourse(fr, "CI590");
+		assertEquals(2, student1.getEnrolledCourses().size());
+		//enrolledCourses still contains both courses 
+		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(1)));
+		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(2)));
 	}
 	
 	

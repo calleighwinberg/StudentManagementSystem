@@ -70,6 +70,7 @@ public class Student extends User {
 			return false;
 		}
 
+		System.out.println("Course added successfully");
 		return true;
 	}
 	
@@ -82,7 +83,7 @@ public class Student extends User {
 			
 			Courses course = this.returnCourseObjFromID(fr, courseID);
 
-			System.out.println(this.getEnrolledCourses().size());
+			//System.out.println(this.getEnrolledCourses().size());
 			
 			this.enrolledCourses.add(course);
 			
@@ -90,6 +91,35 @@ public class Student extends User {
 
 		}
 
+	}
+	
+	
+	void dropCourse(FileInfoReader fr, String courseID) {
+		
+		Courses thisCourse = this.returnCourseObjFromID(fr, courseID);
+		
+		//if we are able to remove the course from the enrolledCourses array
+		if(this.enrolledCourses.remove(thisCourse)) {
+			System.out.println("Course dropped successfully");
+			//decrement the number of students enrolled in that specific class 
+			thisCourse.setNumStudentsEnrolled(thisCourse.getNumStudentsEnrolled() - 1);
+			
+		} else {
+			System.out.println("The course you selected is not in your schedule");
+		}
+	}
+	
+	
+	
+	
+	void viewEnrolledCourses() {
+		
+		System.out.println("The courses in your list:");
+		
+		//iterate through each course in the enrolledCourses array and print them. Calling print on the course obj calls the toString method 
+		for(Courses course : this.getEnrolledCourses()) {
+			System.out.println(course);
+		}
 	}
 	
 
