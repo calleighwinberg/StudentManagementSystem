@@ -88,6 +88,7 @@ public class Student extends User {
 			this.enrolledCourses.add(course);
 			
 			course.setNumStudentsEnrolled(course.getNumStudentsEnrolled() + 1);
+			course.getStudentsEnrolled().add(this);
 
 		}
 

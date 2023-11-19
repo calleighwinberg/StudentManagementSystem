@@ -1,5 +1,6 @@
 import files.FileInfoReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import courses.Courses;
@@ -10,7 +11,7 @@ import roles.Student;
 public class Controller {
 	
 	//create instance of FileInfoReader so we can access files and arrays 
-	FileInfoReader fileInfoReader = new FileInfoReader();
+	FileInfoReader fr = new FileInfoReader();
 	
 	
 	//these are isntance variables that prof has:
@@ -45,13 +46,33 @@ public class Controller {
 	 */
 	
 	
-	/**
-	 * Prints a list of all courses
-	 * */
-	public void printAllCourses() {
-		System.out.println(fileInfoReader.getCourseInfo()); // getCourseInfo returns the Array List, which when called for
-														// printing calls the toString method in Course
+	if(input == 1) {
+		this.login(fr, fr.getStudentInfo());
+	} 
+	
+	else if(input == 2) {
+		
+	}
+	
+	
+	private void login(FileInfoReader fr2, ArrayList<Student> studentInfo) {
+		// TODO Auto-generated method stub
+		
+		//promt for username
+		
+		for(Student student : studentInfo) {
+			if(student.getUsername().equals(usernameInput)) {
+				
+				//promt for pass
+				if(student.getPassword().equals(passwordInput)) {
+					
+					//call method for student experience 
+				}
+			}
+		}
+		
 	}
 
+	
 
 }

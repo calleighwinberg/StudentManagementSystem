@@ -3,6 +3,7 @@ package roles;
 import java.util.ArrayList;
 
 import courses.Courses;
+import files.FileInfoReader;
 
 public class Professor extends User {
 	
@@ -47,5 +48,38 @@ public class Professor extends User {
 		return profCourses;
 
 	}
+	
+	
+	public String viewStudentListOfGivenCourse(FileInfoReader fr, String courseID) {
+		
+		String studentList;
+		
+		Courses thisCourse = this.returnCourseObjFromID(fr, courseID);
+		
+		ArrayList<Courses> profCourses = this.ViewGivenCourses(fr.getCourseInfo());
+		
+		if(profCourses.contains(thisCourse)) {
+			
+			studentList = ("Students in course " + thisCourse.getCourseID() + " " + thisCourse.getCourseName()+ ":\n");
+			
+			
+			//System.out.println("Students in course " + thisCourse.getCourseID() + " " + thisCourse.getCourseName()+ ":");
+			
+			for(Student student : thisCourse.getStudentsEnrolled()) {
+				
+				studentList += student.getId() + " " + student.getName() + "\n";
+				
+			}
+			
+		} else {
+			studentList = "This course is not is your course list.";
+		}
+		
+		//return studentsEnrolled;
+		
+		return studentList;
+		
+	}
+	
 
 }

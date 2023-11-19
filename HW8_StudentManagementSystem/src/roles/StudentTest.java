@@ -85,7 +85,15 @@ class StudentTest {
 		assertEquals(1, fr.getCourseInfo().get(1).getNumStudentsEnrolled());
 		assertEquals(2, student1.getEnrolledCourses().size());
 		assertEquals(fr.getCourseInfo().get(0), student1.getEnrolledCourses().get(0));
+		
+		//check that the course has student1 enrolled
+		assertEquals(1, fr.getCourseInfo().get(0).getStudentsEnrolled().size());
+		assertEquals("StudentName1", fr.getCourseInfo().get(0).getStudentsEnrolled().get(0).getName());
+		assertEquals("001", fr.getCourseInfo().get(0).getStudentsEnrolled().get(0).getId());
 
+		
+		//test adding another student and then check their info in course.getStudentsEnrolled 
+		
 	}
 	
 	@Test 

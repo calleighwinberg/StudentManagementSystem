@@ -43,9 +43,12 @@ public abstract class User {
 	}
 	
 	
-	void viewAllCourseInfo() {
+	void viewAllCourseInfo(FileInfoReader fr) {
 		
-		//something like call this.courseObj.method and have it return a collection with all courses and their info. 
+		 for(Courses course : fr.getCourseInfo()) {
+			 
+			 System.out.println(course);
+		 }
 	}
 	
 	

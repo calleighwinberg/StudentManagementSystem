@@ -3,6 +3,7 @@ package courses;
 import java.util.ArrayList;
 
 import files.FileInfoReader;
+import roles.Student;
 import roles.User;
 
 public class Courses {
@@ -27,7 +28,9 @@ public class Courses {
 	
 	private int numStudentsEnrolled = 0;
 	
-	FileInfoReader fr = new FileInfoReader();
+	ArrayList<Student> studentsEnrolled = new ArrayList<Student>();
+	
+	//FileInfoReader fr = new FileInfoReader();
 	
 	/**
 	 * constructor 1 takes a string and parses the info into separate parts. Then initializes each instance variable with the info
@@ -319,6 +322,22 @@ public class Courses {
 	}
 	
 	
+	/**
+	 * @return the studentsEnrolled
+	 */
+	public ArrayList<Student> getStudentsEnrolled() {
+		return studentsEnrolled;
+	}
+
+
+	/**
+	 * @param studentsEnrolled the studentsEnrolled to set
+	 */
+	public void setStudentsEnrolled(ArrayList<Student> studentsEnrolled) {
+		this.studentsEnrolled = studentsEnrolled;
+	}
+
+
 	@Override
 	public boolean equals(Object o) {
 		
