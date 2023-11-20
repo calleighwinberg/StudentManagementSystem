@@ -52,7 +52,7 @@ public abstract class User {
 	}
 	
 	
-	Courses returnCourseObjFromID(FileInfoReader fr, String id) {
+	public Courses returnCourseObjFromID(FileInfoReader fr, String id) {
 		
 		for(Courses course: fr.getCourseInfo()) {
 			

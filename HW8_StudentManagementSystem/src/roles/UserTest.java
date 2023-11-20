@@ -11,8 +11,6 @@ import files.FileInfoReader;
 class UserTest {
 
 	FileInfoReader fr;
-	
-	Courses courses;
 
 	@BeforeEach
 	void setUp() throws Exception {

@@ -25,8 +25,25 @@ public class Professor extends User {
 		this.setUsername(array[2].trim());
 		
 		this.setPassword(array[3].trim());
+	}
+	
+	/**
+	 * This constructor will be called when the admin is creating a new professor 
+	 * @param id
+	 * @param name
+	 * @param username
+	 * @param password
+	 */
+	public Professor(String id, String name, String username, String password) {
 		
-
+		//call the User constructor first with userType
+		super(userType);
+		
+		//set the instance variables
+		this.setId(id);
+		this.setName(name);
+		this.setUsername(username);
+		this.setPassword(password);
 	}
 	
 	public ArrayList<Courses> ViewGivenCourses(ArrayList<Courses> allCourses) {

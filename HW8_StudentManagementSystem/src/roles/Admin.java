@@ -27,9 +27,9 @@ public class Admin extends User {
 	}
 	
 	
-	public Courses addCourse(FileInfoReader fr, String courseID, String courseName, String courseStart, String courseEnd, String courseDate, int lecturerID, int courseCapacity) {
+	public Courses addCourse(FileInfoReader fr, String courseID, String courseName, String courseProf, String courseStart, String courseEnd, String courseDate, String courseCapacity) {
 
-		Courses newCourse = new Courses(courseID, courseName, courseStart, courseEnd, courseDate, lecturerID, courseCapacity);
+		Courses newCourse = new Courses(courseID, courseName, courseProf, courseStart, courseDate, courseEnd, courseCapacity);
 			
 		return newCourse;
 		
@@ -53,6 +53,34 @@ public class Admin extends User {
 
 		System.out.println("That course doesn't exist.");
 		return false;
+	}
+	
+	
+	public boolean meetsCourseIDNamingConvention(String courseID) {
+		
+		return true;
+	}
+	
+	
+	
+	public Professor lecturerExistsInSystem(FileInfoReader fr, String lecturerID) {
+		
+		for(Professor professor : fr.getProfessorInfo()) {
+			if(professor.getId().equals(lecturerID)) {
+				return professor;
+			}
+		}
+		return null;
+	}
+	
+	
+	public Professor addProfessor(FileInfoReader fr, String id, String name, String username, String password) {
+		
+		Professor professor = new Professor(id, name, username, password);
+		
+		fr.getProfessorInfo().add(professor);
+		
+		return professor;
 	}
 	
 	

@@ -60,16 +60,21 @@ public class Courses {
 	/**
 	 * constructor 2 will be used by admin when they're adding a new course
 	 */ 
-	public Courses(String courseID, String courseName, String courseStart, String courseEnd, String courseDate, int lecturerID, int courseCapacity) {
+	public Courses(String courseID, String courseName, String courseProf, String courseDate, String courseStart, String courseEnd, String courseCapacity) {
 		
 		this.courseID = courseID;
 		
 		this.courseName = courseName;
 		
+		this.courseProfessor = courseProf;
+		
+		this.courseDays = courseDate;
+		
 		this.courseStart = this.setCourseStart(courseStart); 
 		
 		this.courseEnd = this.setCourseEnd(courseEnd);
-		///and so on 
+	
+		this.courseCapacity = courseCapacity;
 		
 	}
 	
