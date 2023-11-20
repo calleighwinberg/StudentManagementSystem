@@ -43,7 +43,7 @@ public abstract class User {
 	}
 	
 	
-	void viewAllCourseInfo(FileInfoReader fr) {
+	public void viewAllCourseInfo(FileInfoReader fr) {
 		
 		 for(Courses course : fr.getCourseInfo()) {
 			 

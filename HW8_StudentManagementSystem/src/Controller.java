@@ -2,6 +2,7 @@ import files.FileInfoReader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import courses.Courses;
@@ -16,7 +17,7 @@ public class Controller {
 	FileInfoReader fr = new FileInfoReader();
 	
 	
-	//these are isntance variables that prof has:
+	//these are instance variables that prof has:
 	Student student;
 	Professor prof;
 	Admin admin;
@@ -39,6 +40,8 @@ public class Controller {
 	
 		ct.initialLogin(scanner);
 		
+		scanner.close();
+		
 		System.out.println("Goodbye!");
 		
 
@@ -46,16 +49,12 @@ public class Controller {
 
 		}
 		
-		
-	
-	
 	/**
 	 * a professor logs in and sees menu
 	 * 
 	 * professor.viewgivenCourse(Course Object);
 	 * courseObject.viewCourse(int professor.getID)
 	 */
-	
 
 	
 	private void initialLogin(Scanner scanner) {
@@ -73,11 +72,13 @@ public class Controller {
 	        
 			if(option.equals("1")) {
 				System.out.println("Student");
+				this.loginStudent(scanner);
 				//this.loginStudent(fr, fr.getStudentInfo());
 			} 
 			
 			else if(option.equals("2")) {
 				System.out.println("prof");
+				this.loginProf(scanner);
 				
 			}
 			
@@ -115,6 +116,70 @@ public class Controller {
 		}
 		
 	}*/
+	private void loginStudent(Scanner scanner) {
+		boolean usernameFound = false;
+		boolean passwordFound = false;
+		
+		while(!(usernameFound)) {
+			
+			System.out.println("Please enter your username: ");
+			
+			String usernameInput = scanner.next().trim();
+			
+			for(Student student : fr.getStudentInfo()) {
+				
+				if(student.getUsername().equals(usernameInput)) {
+					
+					while(!(passwordFound)) {
+						
+						System.out.println("Please enter your password: ");
+						
+						String passwordInput = scanner.next();
+						
+						if(student.getPassword().equals(passwordInput)) {
+							
+							this.studentView(student, scanner);
+							
+							passwordFound = true;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	private void loginProf(Scanner scanner) {
+		boolean usernameFound = false;
+		boolean passwordFound = false;
+		
+		while(!(usernameFound)) {
+			
+			System.out.println("Please enter your username: ");
+			
+			String usernameInput = scanner.next().trim();
+			
+			for(Professor professor : fr.getProfessorInfo()) {
+				
+				if(professor.getUsername().equals(usernameInput)) {
+					
+					while(!(passwordFound)) {
+						
+						System.out.println("Please enter your password: ");
+						
+						String passwordInput = scanner.next();
+						
+						if(professor.getPassword().equals(passwordInput)) {
+							
+							this.profView(professor, scanner);
+							
+							passwordFound = true;
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	private void loginAdmin(Scanner scanner) {
 		// can i pass in generic arrayList<Object> and thens et to either stufent prof or admin 
@@ -178,6 +243,7 @@ public class Controller {
 	        
 			if(option.equals("1")) {
 				System.out.println("view all");
+				admin.viewAllCourseInfo(fr);
 
 			} 
 			
@@ -214,9 +280,129 @@ public class Controller {
 			else if(option.equals("8")) {
 				System.out.println("return to previous");
 				adminViewRunning = false;
+				initialLogin(scanner);
 			}
 		}
 		
+	}
+	
+	private void profView(Professor professor, Scanner scanner) {
+		
+		boolean profViewRunning = true;
+		
+		while(profViewRunning) {
+			
+			System.out.println("-------------------------\n" + "Welcome, " + professor.getName() + "\n" + "-------------------------\n" + "1 -- View given courses\n" 
+					+ "2 -- View student list of the given course\n" + "3 -- Return to the previous menu\n");
+			
+			System.out.println("Please enter your option, eg. '1' ");
+			
+			String option = scanner.next();
+			
+			if(option.equals("1")) {
+				System.out.println("view course");
+				ArrayList<Courses> givenCourses = professor.ViewGivenCourses(fr.getCourseInfo());
+				System.out.println("----------The Course List----------");
+				for (Courses course : givenCourses) {
+					System.out.println(course);
+				}
+				
+
+			} 
+			
+			else if(option.equals("2")) {
+				System.out.println("view student list");
+				System.out.println("Please enter the course ID, eg. 'CIT590'. ");
+				System.out.println("Or enter 'q' to return to the previous menu. ");
+				String listOfStudents = scanner.next();
+				if (listOfStudents.equals("q")) {
+					continue;	
+				} else {
+					String studentList = professor.viewStudentListOfGivenCourse(fr, listOfStudents);
+					System.out.println(studentList);
+				}
+				
+			}
+			
+			else if(option.equals("3")) {
+				
+				System.out.println("return to previous");
+				profViewRunning = false;
+				initialLogin(scanner);
+			}
+		}
+	}
+	
+	private void studentView(Student student, Scanner scanner) {
+		
+		boolean studentViewRunning = true;
+		
+		while(studentViewRunning) {
+			System.out.println("");
+			System.out.println("-------------------------\n" + "Welcome, " + student.getName() + "\n" + "-------------------------\n" + "1 -- View all courses\n" 
+					+ "2 -- Add courses to your list\n" + "3 -- View selected courses\n" + "4 -- Drop course in your list\n" + "5 -- View grades\n" + "6 -- Return to previous menu\n");
+			
+			System.out.println("Please enter your option, eg. '1' ");
+			
+			String option = scanner.next();
+			
+			if(option.equals("1")) {
+				System.out.println("view all");
+				student.viewAllCourseInfo(fr);
+
+			} 
+			
+			else if(option.equals("2")) {
+				System.out.println("add course");
+				System.out.println("Please select the course ID you want to add to your list, eg. 'CIT590'. ");
+				System.out.println("Or enter 'q' to return to the previous menu. ");
+				String addCourseInput = scanner.next();
+				if (addCourseInput.equals("q")) {
+					continue;
+				} else {
+					student.addCourse(fr, addCourseInput);
+				}
+			}
+			
+			else if(option.equals("3")) {
+				
+				System.out.println("view course");
+				student.viewEnrolledCourses();
+				
+			}
+			else if(option.equals("4")) {
+				
+				System.out.println("drop course");
+				student.viewEnrolledCourses();
+				System.out.println("");
+				System.out.println("Please enter the ID of the course which you want to drop, eg. 'CIT590'. ");
+				System.out.println("Or enter 'q' to return to the previous menu. ");
+				String dropCourseInput = scanner.next();
+				if (dropCourseInput.equals("q")) {
+					continue;
+				} else {
+					student.dropCourse(fr, dropCourseInput);
+				}
+				
+			}
+			else if(option.equals("5")) {
+				
+				System.out.println("view grades");
+				Map<String,String> courseAndGrade = student.getPastCoursesAndGrades(fr); //need to assign to variable and print
+				System.out.println("Here are the courses you have already taken, with your grade in a letter format.");
+				for (Map.Entry<String, String> entry : courseAndGrade.entrySet()) {
+					System.out.println("Grade of " + entry.getKey() + ": " + entry.getValue());
+				}
+				
+			}
+			else if(option.equals("6")) {
+				
+				System.out.println("return to previous");
+				studentViewRunning = false;
+				initialLogin(scanner);
+				
+			}
+		}
 	}
 
 	

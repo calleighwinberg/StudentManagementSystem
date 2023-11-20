@@ -77,7 +77,7 @@ public class Student extends User {
 	
 	
 	
-	void addCourse(FileInfoReader fr, String courseID) {
+	public void addCourse(FileInfoReader fr, String courseID) {
 		
 		if(this.okToAddCourse(fr, courseID)) {
 			
@@ -95,7 +95,7 @@ public class Student extends User {
 	}
 	
 	
-	void dropCourse(FileInfoReader fr, String courseID) {
+	public void dropCourse(FileInfoReader fr, String courseID) {
 		
 		Courses thisCourse = this.returnCourseObjFromID(fr, courseID);
 		
@@ -113,7 +113,7 @@ public class Student extends User {
 	
 	
 	
-	void viewEnrolledCourses() {
+	public void viewEnrolledCourses() {
 		
 		System.out.println("The courses in your list:");
 		
