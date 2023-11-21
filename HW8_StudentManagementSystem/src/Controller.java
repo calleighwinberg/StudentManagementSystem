@@ -243,6 +243,7 @@ public class Controller {
 					//retrieves courseID
 					System.out.println("Please enter the course ID, or type 'q' to end. ");
 					courseID = scanner.next().trim();
+					System.out.println(courseID);
 					if (courseID.equals("q")) {
 						break;
 						
@@ -258,7 +259,10 @@ public class Controller {
 						
 						//retrieves courseName
 						System.out.println("Please enter the course name, or type 'q' to end. ");
-						String courseName = scanner.next().trim();
+						//need to clear the scanner buffer of the '\n' character that's leftover 
+						scanner.nextLine();
+						String courseName = scanner.nextLine().trim();
+						System.out.println(courseName);
 						if (courseName.equals("q")) {
 							break;	
 						}
@@ -309,10 +313,9 @@ public class Controller {
 							if(courseProf == null) {
 								break;
 							}
-							
-							admin.addCourse(fr, courseID, courseName, courseProf.getName(), courseStart, courseEnd, courseDate, courseCapacity);
-
-						}
+						}					
+						admin.addCourse(fr, courseID, courseName, courseProf.getName(), courseDate, courseStart, courseEnd, courseCapacity);
+					
 					}	
 				}			
 			}
@@ -487,7 +490,9 @@ public class Controller {
 		
 		//retrieves prof Name
 		System.out.println("Please enter the professor's name, or type 'q' to end. ");
-		String profName = scanner.next().trim();
+		//need to clear the scanner buffer of the '\n' character that's leftover 
+		scanner.nextLine();
+		String profName = scanner.nextLine().trim();
 		if (profName.equals("q")) {
 			return null;
 		} 

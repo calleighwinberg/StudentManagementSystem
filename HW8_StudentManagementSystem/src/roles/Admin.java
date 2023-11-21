@@ -27,20 +27,33 @@ public class Admin extends User {
 	}
 	
 	
-	public Courses addCourse(FileInfoReader fr, String courseID, String courseName, String courseProf, String courseStart, String courseEnd, String courseDate, String courseCapacity) {
+	public Courses addCourse(FileInfoReader fr, String courseID, String courseName, String courseProf, String courseDate, String courseStart, String courseEnd, String courseCapacity) {
 
-		Courses newCourse = new Courses(courseID, courseName, courseProf, courseStart, courseDate, courseEnd, courseCapacity);
-			
-		return newCourse;
+		//create a new course object with the given info
+		Courses newCourse = new Courses(courseID, courseName, courseProf, courseDate, courseStart, courseEnd, courseCapacity);
 		
+		//find the professor object that will be teaching the created courses
+		for(Professor professor : fr.getProfessorInfo()) {
+			if(professor.getName().equals(courseProf)) {
+				//iterate through all that professors course and see if the newCourse will pose a time conflict 
+				for(Courses course : professor.ViewGivenCourses(fr.getCourseInfo())) {
+					//if a time conflict is found, print statements 
+					if(course.timeConflict(newCourse)) {
+						System.out.println("The new added course has a time conflict with course: " + course);
+						System.out.println("Unable to add new course: " + newCourse);
+						return newCourse;
+					}
+				}
+				//if not time conflict is found, add the course to the course array
+				fr.getCourseInfo().add(newCourse);
+				System.out.println("Successfully added the new course: " + newCourse);
+			}
+		}
+		//the course created is returned mostly for testing purposes. We could leave this function void is needed 
+		return newCourse;		
 	}
 	
-	public boolean okayToAddCourse(FileInfoReader fr, String courseID, String courseName, String courseStart, String courseEnd, String courseDate, int lecturerID, int courseCapacity) {
-		
-		
-		
-		return true;
-	}
+
 	
 	
 	public boolean deleteCourse(FileInfoReader fr, String courseID) {

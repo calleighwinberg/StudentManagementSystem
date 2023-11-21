@@ -93,7 +93,8 @@ public class Courses {
 	
 	
 	public boolean timeConflict(Courses course) {
-
+		
+		if(this.courseDays.equals(course.getCourseDays())) {
 			
 			if(this.courseStart == course.courseStart) {
 				return true;
@@ -111,8 +112,7 @@ public class Courses {
 				}
 			}
 			
-			
-		//}
+		}
 		
 		return false;
 	}

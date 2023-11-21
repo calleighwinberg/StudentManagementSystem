@@ -88,6 +88,10 @@ class CoursesTest {
 		assertEquals("13:29", course1.getCourseStart());
 		assertTrue(course1.timeConflict(course2));
 		
+		//test courses with same times but different days
+		course1.setCourseDays("TR");
+		assertFalse(course1.timeConflict(course2));
+		
 		
 	}
 	
