@@ -1,5 +1,7 @@
 package roles;
 
+import java.util.ArrayList;
+
 import courses.Courses;
 import files.FileInfoReader;
 
@@ -69,20 +71,52 @@ public class Admin extends User {
 	}
 	
 	
-	public boolean meetsCourseIDNamingConvention(String courseID) {
+	public boolean meetsCourseIDNamingConvention(String courseID) { //still needs to be implemented 
 		
 		return true;
 	}
+		
 	
+	public Professor returnProfessorObjFromUsername(FileInfoReader fr, String username) {
+		
+		for(Professor professor : fr.getProfessorInfo()) {
+			if(professor.getUsername().equals(username)) {
+				return professor;
+			}
+		}
+		return null;
+	}
 	
-	
-	public Professor lecturerExistsInSystem(FileInfoReader fr, String lecturerID) {
+	public Professor returnProfessorObjFromID(FileInfoReader fr, String lecturerID) {
 		
 		for(Professor professor : fr.getProfessorInfo()) {
 			if(professor.getId().equals(lecturerID)) {
 				return professor;
 			}
 		}
+		return null;
+	}
+	
+	public User returnUserObjFromID(FileInfoReader fr, String userID, String type) {
+		
+		if(type == "Professor") {
+			for(Professor user : fr.getProfessorInfo()) {
+				if(user.getId().equals(userID)) {
+					return user;
+				}
+			}
+			return null;
+		}
+		
+		if(type == "Student") {
+			for(Student user : fr.getStudentInfo()) {
+				if(user.getId().equals(userID)) {
+					return user;
+				}
+			}
+			return null;
+		}
+		
 		return null;
 	}
 	

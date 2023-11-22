@@ -86,6 +86,8 @@ public class Controller {
 				
 				System.out.println("admin");
 				
+				
+				
 				this.loginAdmin(scanner);
 				
 			}
@@ -181,7 +183,7 @@ public class Controller {
 			
 			String usernameInput = scanner.next().trim();
 			
-			for(Admin admin : fr.getAdminInfo()) {
+			for(User admin : fr.getAdminInfo()) {
 
 				if(admin.getUsername().equals(usernameInput)) {
 					
@@ -193,8 +195,10 @@ public class Controller {
 						
 						if(admin.getPassword().equals(passwordInput)) {
 							
-							//call method for admin experience 
-							this.adminView(admin, scanner);
+							//if(user.getUserType == addmin) then cas tto Admin and call adminView 
+							
+							//call method for admin experience. first need to cast to an Admin obj 
+							this.adminView((Admin)admin, scanner);
 							
 							passwordFound = true;
 						}
@@ -228,108 +232,20 @@ public class Controller {
 
 	        
 			if(option.equals("1")) {
-				System.out.println("view all");
 				admin.viewAllCourseInfo(fr);
 
 			} 
 			
 			else if(option.equals("2")) {
-				
-				boolean validCourseID = false;
-				String courseID = "";
-				
-				while(!validCourseID) {
-					
-					//retrieves courseID
-					System.out.println("Please enter the course ID, or type 'q' to end. ");
-					courseID = scanner.next().trim();
-					System.out.println(courseID);
-					if (courseID.equals("q")) {
-						break;
-						
-					} 
-					else if(!(admin.returnCourseObjFromID(fr, courseID) == null)){
-						System.out.println("The course already exists.");
-					}
-					else if(!(admin.meetsCourseIDNamingConvention(courseID))) { //we could implement regex here or just leave it out, doesn't matter
-						System.out.println("Please use format 'CIS'/'CIT' followed by 3 numbers 0-9 ");
-					}
-					else {
-						validCourseID = true;
-						
-						//retrieves courseName
-						System.out.println("Please enter the course name, or type 'q' to end. ");
-						//need to clear the scanner buffer of the '\n' character that's leftover 
-						scanner.nextLine();
-						String courseName = scanner.nextLine().trim();
-						System.out.println(courseName);
-						if (courseName.equals("q")) {
-							break;	
-						}
-						
-						//retrieves courseStart
-						System.out.println("Please enter the course start time, or type 'q' to end. ");
-						String courseStart = scanner.next().trim();
-						if (courseStart.equals("q")) {
-							break;	
-						}
-						
-						//retrieves courseEnd
-						System.out.println("Please enter the course end time, or type 'q' to end. ");
-						String courseEnd = scanner.next().trim();
-						if (courseEnd.equals("q")) {
-							break;	
-						}
-						
-						//retrieves courseDate
-						System.out.println("Please enter the course date, or type 'q' to end. ");
-						String courseDate = scanner.next().trim();
-						if (courseDate.equals("q")) {
-							break;	
-						}
-						
-						//retrieves courseCapacity
-						System.out.println("Please enter the course capacity, or type 'q' to end. ");
-						String courseCapacity = scanner.next().trim();
-						if (courseCapacity.equals("q")) {
-							break;	
-						}
-						
-						//retrieves courseLecturer's ID
-						System.out.println("Please enter the course lecturer's ID, or type 'q' to end. ");
-						String courseLecturerID = scanner.next().trim();
-						if (courseLecturerID.equals("q")) {
-							break;	
-						}
-						//retrieve course prof course the course ID
-						Professor courseProf = admin.lecturerExistsInSystem(fr, courseLecturerID);
-						
-						if(courseProf == null) {
-							
-							System.out.println("That professor isn't in the system, please add the professor first.");
-							
-							courseProf = this.addProfessor(admin, scanner);
-							
-							if(courseProf == null) {
-								break;
-							}
-						}					
-						admin.addCourse(fr, courseID, courseName, courseProf.getName(), courseDate, courseStart, courseEnd, courseCapacity);
-					
-					}	
-				}			
+				this.addCourse(admin, scanner);
 			}
-			
-			
-			
+	
 			else if(option.equals("3")) {
 				
 				System.out.println("delete course");
 				
 			}
 			else if(option.equals("4")) {
-				
-				System.out.println("add prof");
 				this.addProfessor(admin, scanner);
 				
 			}
@@ -480,41 +396,154 @@ public class Controller {
 	Professor addProfessor(Admin admin, Scanner scanner) {
 		
 		//String profID = "";
+		boolean validProfID = false;
+		//String courseID = "";
 		
-		//retrieves profID
-		System.out.println("Please enter the professor's ID, or type 'q' to end. ");
-		String profID = scanner.next().trim();
-		if (profID.equals("q")) {
-			return null;
-		} 
+		while(!validProfID) {
+			
+			//retrieves profID
+			System.out.println("Please enter the professor's ID, or type 'q' to end. ");
+			String profID = scanner.next().trim();
+			if (profID.equals("q")) {
+				return null;
+			}
+			else if(!(admin.returnProfessorObjFromID(fr, profID) == null)) {
+				System.out.println("The ID already exists");
+			}
+			//else if() {} something about regex for prof ID formatt. 3 numbers. can be used for ID of student as well
+			
+			else {
+				validProfID = true;
+				
+				//retrieves prof Name
+				System.out.println("Please enter the professor's name, or type 'q' to end. ");
+				//need to clear the scanner buffer of the '\n' character that's leftover 
+				scanner.nextLine();
+				String profName = scanner.nextLine().trim();
+				if (profName.equals("q")) {
+					return null;
+				}
+				
+				boolean validUsername = false;
+				
+				while(!validUsername) {
+					
+					//retrieves prof username
+					System.out.println("Please enter the professor's username, or type 'q' to end. ");
+					String profUsername = scanner.next().trim();
+					if (profUsername.equals("q")) {
+						return null;
+					} 
+					else if(!(admin.returnProfessorObjFromUsername(fr, profUsername) == null)) {
+						System.out.println("The username is not available.");
+					}
+					//else if() {} something about regex for prof ID formatt. 3 numbers. can be used for ID of student as well
+					
+					else {
+						validUsername = true;
+						
+						//retrieves prof password
+						System.out.println("Please enter the professor's password, or type 'q' to end. ");
+						String profPassword = scanner.next().trim();
+						if (profPassword.equals("q")) {
+							return null;
+						} 
+						
+						Professor professor = admin.addProfessor(fr, profID, profName, profUsername, profPassword);
+						System.out.println("Successfully added the new professor: " + professor.getId() + " " + professor.getName());
+						
+						return professor;					
+					}					
+				}
+			}	
+		}
+		return null;
+	}
+	
+	void addCourse(Admin admin, Scanner scanner) {
 		
-		//retrieves prof Name
-		System.out.println("Please enter the professor's name, or type 'q' to end. ");
-		//need to clear the scanner buffer of the '\n' character that's leftover 
-		scanner.nextLine();
-		String profName = scanner.nextLine().trim();
-		if (profName.equals("q")) {
-			return null;
-		} 
+		boolean validCourseID = false;
+		//String courseID = "";
 		
-		//retrieves prof username
-		System.out.println("Please enter the professor's username, or type 'q' to end. ");
-		String profUsername = scanner.next().trim();
-		if (profUsername.equals("q")) {
-			return null;
-		} 
-		
-		//retrieves prof password
-		System.out.println("Please enter the professor's password, or type 'q' to end. ");
-		String profPassword = scanner.next().trim();
-		if (profPassword.equals("q")) {
-			return null;
-		} 
-		
-		Professor professor = admin.addProfessor(fr, profID, profName, profUsername, profPassword);
-		System.out.println("Successfully added the new professor: " + professor.getId() + " " + professor.getName());
-		
-		return professor;
+		while(!validCourseID) {
+			
+			//retrieves courseID
+			System.out.println("Please enter the course ID, or type 'q' to end. ");
+			String courseID = scanner.next().trim();
+			System.out.println(courseID);
+			if (courseID.equals("q")) {
+				break;
+				
+			} 
+			else if(!(admin.returnCourseObjFromID(fr, courseID) == null)){
+				System.out.println("The course already exists.");
+			}
+			else if(!(admin.meetsCourseIDNamingConvention(courseID))) { //we could implement regex here or just leave it out, doesn't matter
+				System.out.println("Please use format 'CIS'/'CIT' followed by 3 numbers 0-9 ");
+			}
+			else {
+				validCourseID = true;
+				
+				//retrieves courseName
+				System.out.println("Please enter the course name, or type 'q' to end. ");
+				//need to clear the scanner buffer of the '\n' character that's leftover 
+				scanner.nextLine();
+				String courseName = scanner.nextLine().trim();
+				System.out.println(courseName);
+				if (courseName.equals("q")) {
+					break;	
+				}
+				
+				//retrieves courseStart
+				System.out.println("Please enter the course start time, or type 'q' to end. ");
+				String courseStart = scanner.next().trim();
+				if (courseStart.equals("q")) {
+					break;	
+				}
+				
+				//retrieves courseEnd
+				System.out.println("Please enter the course end time, or type 'q' to end. ");
+				String courseEnd = scanner.next().trim();
+				if (courseEnd.equals("q")) {
+					break;	
+				}
+				
+				//retrieves courseDate
+				System.out.println("Please enter the course date, or type 'q' to end. ");
+				String courseDate = scanner.next().trim();
+				if (courseDate.equals("q")) {
+					break;	
+				}
+				
+				//retrieves courseCapacity
+				System.out.println("Please enter the course capacity, or type 'q' to end. ");
+				String courseCapacity = scanner.next().trim();
+				if (courseCapacity.equals("q")) {
+					break;	
+				}
+				
+				//retrieves courseLecturer's ID
+				System.out.println("Please enter the course lecturer's ID, or type 'q' to end. ");
+				String courseLecturerID = scanner.next().trim();
+				if (courseLecturerID.equals("q")) {
+					break;	
+				}
+				//retrieve course prof course the course ID
+				Professor courseProf = admin.returnProfessorObjFromID(fr, courseLecturerID);
+				
+				if(courseProf == null) {
+					
+					System.out.println("That professor isn't in the system, please add the professor first.");
+					
+					courseProf = this.addProfessor(admin, scanner);
+					
+					if(courseProf == null) {
+						break;
+					}
+				}					
+				admin.addCourse(fr, courseID, courseName, courseProf.getName(), courseDate, courseStart, courseEnd, courseCapacity);		
+			}	
+		}			
 	}
 
 	

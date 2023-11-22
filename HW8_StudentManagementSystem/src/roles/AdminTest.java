@@ -60,27 +60,48 @@ class AdminTest {
 	}
 	
 	@Test
-	void testLecturerExistsInSystem() {
+	void returnProfessorObjFromID() {
 		
 		//test that professor Greenberg is returned when we input 001
 		Admin admin = fr.getAdminInfo().get(0);
-		Professor professor1 = admin.lecturerExistsInSystem(fr, "001");
+		Professor professor1 = admin.returnProfessorObjFromID(fr, "001");
 		assertEquals(fr.getProfessorInfo().get(0), professor1);
 		
 		//test that professor Naik is returned when we input 001
-		Professor professor2 = admin.lecturerExistsInSystem(fr, "012");
+		Professor professor2 = admin.returnProfessorObjFromID(fr, "012");
 		assertEquals(fr.getProfessorInfo().get(11), professor2);
 		
 		
 		//test that a null professor object is returned when we input an ID that doesn't correlate to a prof
-		Professor professor3 = admin.lecturerExistsInSystem(fr, "000");
+		Professor professor3 = admin.returnProfessorObjFromID(fr, "000");
+		assertEquals(null, professor3);
+
+	}
+	
+	@Test
+	void returnUserObjFromID() {
+		
+		//test that professor Greenberg is returned when we input 001
+		Admin admin = fr.getAdminInfo().get(0);
+		User professor1 = admin.returnUserObjFromID(fr, "001", "Professor"); //cast to prof 
+		//System.out.println(professor1.getName());
+		assertEquals(fr.getProfessorInfo().get(0), professor1);
+		
+		//test that professor Naik is returned when we input 001
+		User professor2 = admin.returnUserObjFromID(fr, "012", "Professor");
+		assertEquals(fr.getProfessorInfo().get(11), professor2);
+		
+		
+		//test that a null professor object is returned when we input an ID that doesn't correlate to a prof
+		User professor3 = admin.returnUserObjFromID(fr, "000", "Professor");
 		assertEquals(null, professor3);
 		
-
-	
-	
-	
-	
+		
+		//test that student1 is returned when we input 001 and Student
+		User student1 = admin.returnUserObjFromID(fr, "001", "Student"); //cast to prof 
+		//System.out.println(student1.getName());
+		//System.out.println(professor1.getName());
+		assertEquals(fr.getStudentInfo().get(0), student1);
 	}
 
 }

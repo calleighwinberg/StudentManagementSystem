@@ -161,7 +161,11 @@ public abstract class User {
 		
 		User otherUser = (User) o;
 		
-		return this.id.equals(otherUser.id);
+		if((this.id.equals(otherUser.id)) && (this.name.equals(otherUser.name))) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	

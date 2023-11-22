@@ -46,6 +46,7 @@ class UserTest {
 		assertTrue(student1.equals(student2));
 		assertFalse(student2.equals(student3));
 		student3.setId(student1.getId());
+		student3.setName(student1.getName());
 		assertTrue(student1.equals(student3));
 	
 	}
