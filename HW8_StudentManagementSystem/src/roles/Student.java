@@ -32,11 +32,14 @@ public class Student extends User {
 		
 		this.setPassword(array[3].trim());
 		
-		this.setPastCoursesAndGrades(array[4].trim());
-		
-		
-
+		this.setPastCoursesAndGrades(array[4].trim());		
 	}
+	
+	
+	
+	
+	
+	
 	
 	boolean okToAddCourse(FileInfoReader fr, String courseID) {
 		

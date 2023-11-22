@@ -242,28 +242,67 @@ public class Controller {
 	
 			else if(option.equals("3")) {
 				
-				System.out.println("delete course");
+				boolean courseDeleted = false;
 				
+				while(!courseDeleted) {
+					
+					System.out.println("Please enter the course ID for the course to delete: ");
+					String courseIDDelete = scanner.next().trim();
+					if (courseIDDelete.equals("q")) {
+						continue;
+					}
+					courseDeleted = admin.deleteCourse(fr, courseIDDelete);		
+				}
+	
 			}
+			
+			
 			else if(option.equals("4")) {
 				this.addProfessor(admin, scanner);
 				
 			}
+			
+			
 			else if(option.equals("5")) {
 				
-				System.out.println("delete prof");
+				boolean professorDeleted = false;
 				
+				while(!professorDeleted) {
+					
+					System.out.println("Please enter the professor's ID for the professor to delete: ");
+					String profIDDelete = scanner.next().trim();
+					if (profIDDelete.equals("q")) {
+						continue;
+					}
+					professorDeleted = admin.deleteProfessor(fr, profIDDelete);		
+				}
+	
 			}
-			else if(option.equals("6")) {
 				
-				System.out.println("add student");
+			
+			
+			else if(option.equals("6")) {
+
+				this.addStudent(admin, scanner);
 				
 			}
 			else if(option.equals("7")) {
 				
-				System.out.println("delete student");
+				boolean studentDeleted = false;
+				
+				while(!studentDeleted) {
+					
+					System.out.println("Please enter the student's ID for the student to delete: ");
+					String studentIDDelete = scanner.next().trim();
+					if (studentIDDelete.equals("q")) {
+						continue;
+					}
+					studentDeleted = admin.deleteStudent(fr, studentIDDelete);		
+				}
 				
 			}
+			
+			
 			else if(option.equals("8")) {
 				System.out.println("return to previous");
 				adminViewRunning = false;
@@ -450,7 +489,7 @@ public class Controller {
 						} 
 						
 						Professor professor = admin.addProfessor(fr, profID, profName, profUsername, profPassword);
-						System.out.println("Successfully added the new professor: " + professor.getId() + " " + professor.getName());
+						System.out.println("Successfully added the new professor: " + professor);
 						
 						return professor;					
 					}					
@@ -459,6 +498,111 @@ public class Controller {
 		}
 		return null;
 	}
+	
+	
+	Student addStudent(Admin admin, Scanner scanner) {
+
+		//String profID = "";
+		boolean validStudentID = false;
+		//String courseID = "";
+		
+		while(!validStudentID) {
+			
+			//retrieves profID
+			System.out.println("Please enter the student's ID, or type 'q' to end. ");
+			String studentID = scanner.next().trim();
+			if (studentID.equals("q")) {
+				return null;
+			}
+			else if(!(admin.returnStudentObjFromID(fr, studentID) == null)) {
+				System.out.println("The ID already exists");
+			}
+			//else if() {} something about regex for prof ID formatt. 3 numbers. can be used for ID of student as well
+			
+			else {
+				validStudentID = true;
+				
+				//retrieves prof Name
+				System.out.println("Please enter the student's name, or type 'q' to end. ");
+				//need to clear the scanner buffer of the '\n' character that's leftover 
+				scanner.nextLine();
+				String studentName = scanner.nextLine().trim();
+				if (studentName.equals("q")) {
+					return null;
+				}
+				
+				boolean validUsername = false;
+				
+				while(!validUsername) {
+					
+					//retrieves prof username
+					System.out.println("Please enter the student's username, or type 'q' to end. ");
+					String studentUsername = scanner.next().trim();
+					if (studentUsername.equals("q")) {
+						return null;
+					} 
+					else if(!(admin.returnStudentObjFromUsername(fr, studentUsername) == null)) {
+						System.out.println("The username is not available.");
+					}
+					//else if() {} something about regex for prof ID formatt. 3 numbers. can be used for ID of student as well
+					
+					else {
+						validUsername = true;
+						
+						//retrieves prof password
+						System.out.println("Please enter the student's password, or type 'q' to end. ");
+						String studentPassword = scanner.next().trim();
+						if (studentPassword.equals("q")) {
+							return null;
+						}
+						
+						String pastCourses = "";
+						
+						while(true) {
+							System.out.println("Please enter the ID of a course which this student has already taken, one at a time. \n"
+									+ "Type 'q' to quit, type 'n' to stop adding ");
+							String pastCourseID = scanner.next().trim();
+							if (pastCourseID.equals("q")) {
+								return null;
+							}
+							if (pastCourseID.equals("n")) {
+								break;
+							}
+				
+							System.out.println("Please enter the grade, 'A'");
+							String pastCourseGrade = scanner.next().trim();
+							if (pastCourseGrade.equals("q")) {
+								return null;
+							}
+							
+							
+							
+							pastCourses += pastCourseID + ": " + pastCourseGrade + ", ";
+						}
+						
+						pastCourses = pastCourses.substring(0, pastCourses.length()-2);
+						
+						String studentInfo = studentID + "; " + studentName + "; " + studentUsername + "; " + studentPassword + "; " + pastCourses;
+						
+						Student student = admin.addStudent(fr, studentInfo);
+						
+						System.out.println("Successfully added the new student: " + student);
+						
+						return student;					
+					}					
+				}
+			}	
+		}
+		return null;
+}
+
+
+	
+	
+	
+	
+	
+	
 	
 	void addCourse(Admin admin, Scanner scanner) {
 		

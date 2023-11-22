@@ -55,6 +55,18 @@ public class Admin extends User {
 		return newCourse;		
 	}
 	
+	
+	
+	public Student addStudent(FileInfoReader fr, String studentInfo) {
+		
+		Student newStudent = new Student(studentInfo);
+		
+		fr.getStudentInfo().add(newStudent);
+		
+		return newStudent;
+		
+	}
+	
 
 	
 	
@@ -69,6 +81,36 @@ public class Admin extends User {
 		System.out.println("That course doesn't exist.");
 		return false;
 	}
+	
+	
+	
+	
+	public boolean deleteProfessor(FileInfoReader fr, String profID) {
+		
+		if(fr.getProfessorInfo().remove(this.returnProfessorObjFromID(fr, profID))) {
+			
+			System.out.println("Professor successfully removed.");
+			return true;
+		}
+
+		System.out.println("That professor ID doesn't exist.");
+		return false;
+	}
+	
+	
+	public boolean deleteStudent(FileInfoReader fr, String studentID) {
+		
+		if(fr.getStudentInfo().remove(this.returnStudentObjFromID(fr, studentID))) {
+			
+			System.out.println("Student successfully removed.");
+			return true;
+		}
+
+		System.out.println("That student ID doesn't exist.");
+		return false;
+	}
+	
+	
 	
 	
 	public boolean meetsCourseIDNamingConvention(String courseID) { //still needs to be implemented 
@@ -96,6 +138,32 @@ public class Admin extends User {
 		}
 		return null;
 	}
+	
+	
+	
+	public Student returnStudentObjFromUsername(FileInfoReader fr, String username) {
+		
+		for(Student student : fr.getStudentInfo()) {
+			if(student.getUsername().equals(username)) {
+				return student;
+			}
+		}
+		return null;
+	}
+	
+	
+	public Student returnStudentObjFromID(FileInfoReader fr, String lecturerID) {
+		
+		for(Student student : fr.getStudentInfo()) {
+			if(student.getId().equals(lecturerID)) {
+				return student;
+			}
+		}
+		return null;
+	}
+	
+	
+	
 	
 	public User returnUserObjFromID(FileInfoReader fr, String userID, String type) {
 		

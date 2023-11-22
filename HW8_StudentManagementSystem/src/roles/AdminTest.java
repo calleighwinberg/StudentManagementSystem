@@ -46,6 +46,25 @@ class AdminTest {
 		assertFalse(fr.getProfessorInfo().get(0).ViewGivenCourses(fr.getCourseInfo()).contains(courseWithConflict));
 	}
 	
+	
+	@Test
+	void testDeleteCourse() {
+		
+		//test having an admin add a new course. The courseArray size should increase by one. Assuming all input is correct
+		Admin admin = fr.getAdminInfo().get(0);
+		assertEquals(2, fr.getProfessorInfo().get(0).ViewGivenCourses(fr.getCourseInfo()).size());
+		assertTrue(admin.deleteCourse(fr, "CIT592"));
+		assertEquals(1, fr.getProfessorInfo().get(0).ViewGivenCourses(fr.getCourseInfo()).size());
+		assertFalse(fr.getProfessorInfo().get(0).ViewGivenCourses(fr.getCourseInfo()).contains(fr.getCourseInfo().get(2)));
+		assertEquals(49, fr.getCourseInfo().size());
+		
+		
+	}
+	
+	
+	
+	
+	
 	@Test
 	void testAddProfessor() {
 		
