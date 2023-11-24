@@ -220,10 +220,10 @@ public class Courses {
 		String hoursString = "" + hours;
 		
 		if(hours < 10) {
-			hoursString = "0" + hours + ":";
+			hoursString = "0" + hours;
 		}
 		if(minutes < 10) {
-			minutesString = "0" + minutes + ":";
+			minutesString = "0" + minutes;
 		}
 		if(minutes == 0) {
 			minutesString = "00";
