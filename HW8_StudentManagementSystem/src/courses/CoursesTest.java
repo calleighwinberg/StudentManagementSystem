@@ -91,8 +91,6 @@ class CoursesTest {
 		//test courses with same times but different days
 		course1.setCourseDays("TR");
 		assertFalse(course1.timeConflict(course2));
-		
-		
 	}
 	
 	
@@ -107,6 +105,11 @@ class CoursesTest {
 		assertFalse(course1.equals(course3));
 		course3.setCourseID(course1.getCourseID());
 		assertTrue(course1.equals(course3));
+		
+		//test a different course, CIT592
+		Courses course4 = fr.getCourseInfo().get(2);
+		Courses course5 = fr.getCourseInfo().get(2);
+		assertTrue(course4.equals(course5));
 	
 	}
 

@@ -42,20 +42,28 @@ public abstract class User {
 		this.userType = type;
 	}
 	
-	
+	/**
+	 * Method to display all courses.
+	 * @param fr FileInfo to read
+	 */
 	public void viewAllCourseInfo(FileInfoReader fr) {
-		
-		 for(Courses course : fr.getCourseInfo()) {
+		//iterate over each course and print the course information
+		for(Courses course : fr.getCourseInfo()) {
 			 
-			 System.out.println(course);
+			System.out.println(course);
 		 }
 	}
 	
-	
+	/**
+	 * Method to return course object for given courseID
+	 * @param fr FileInfo to read
+	 * @param id of course
+	 * @return course information
+	 */
 	public Courses returnCourseObjFromID(FileInfoReader fr, String id) {
-		
+		//iterate over each course to find a match
 		for(Courses course: fr.getCourseInfo()) {
-			
+			//return the course info if a match is found
 			if(course.getCourseID().equals(id)) {
 				return course;
 			}		
@@ -157,6 +165,9 @@ public abstract class User {
 	
 	
 	@Override
+	/**
+	 * Method to compare User objects.
+	 */
 	public boolean equals(Object o) {
 		
 		User otherUser = (User) o;

@@ -51,6 +51,4 @@ class FileInfoReaderTest {
 		//System.out.println(this.fr.getStudentInfo().get(1).getName());
 		
 	}
-		
-
 }

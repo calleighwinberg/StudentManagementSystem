@@ -43,14 +43,9 @@ public class FileInfoReader {
 	 */
 	private ArrayList<Admin> adminInfo = new ArrayList<Admin>();
 	
-	
-	
 	/**
-	 * read in each line of the professor file and create an array (or other collection) of Professor objects using 
-	 * each line of the file as the constructor. All parsing of the info can be done in the professor class. 
+	 * Method to read given file and create an ArrayList of appropriate object of given file. Parsing handled in respective subclass.
 	 * @param fileName
-	 * @return
-	 * @throws FileNotFoundException
 	 */
 	public void readFile(String fileName) {
 		
@@ -101,20 +96,15 @@ public class FileInfoReader {
 					//add the professor to the professorInfo array
 					studentInfo.add(student);
 					
-				}
-				
+				}				
 				else if(fileName.equals("adminInfo.txt")) {
 					
 					Admin admin = new Admin(line);
 					
 					//add the professor to the professorInfo array
 					adminInfo.add(admin);
-				}
-				
-				
-			}
-			
-			
+				}				
+			}			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,56 +112,11 @@ public class FileInfoReader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-
-
 	}
 	
 	
-	
-	/*public void readCourseFile(String fileName) {
-		
-		//create file object
-		File file = new File(fileName);
-		
-		//define file reader
-		FileReader fileReader = null;
-		
-		//define buffered reader
-		BufferedReader bufferedReader = null;
-		
-		try {
-			fileReader = new FileReader(file);
-			bufferedReader = new BufferedReader(fileReader);
-			
-			String line;
-			
-			while ((line = bufferedReader.readLine()) != null) {
-				
-				//create a course object initialized with the string of info from the file
-				Courses course = new Courses(line);
-				
-				
-				//add the professor to the professorInfo array
-				courseInfo.add(course);
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-	}*/
-	
-
-
+	//getters
+    
 	/**
 	 * @return the professorInfo
 	 */
@@ -202,8 +147,4 @@ public class FileInfoReader {
 	public ArrayList<Admin> getAdminInfo() {
 		return adminInfo;
 	}
-	
-	
-	
-
 }

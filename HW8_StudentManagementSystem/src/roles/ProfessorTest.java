@@ -26,54 +26,55 @@ class ProfessorTest {
 		this.fr.readFile("profInfo.txt");
 		this.fr.readFile("courseInfo.txt");
 		this.fr.readFile("studentInfo.txt");
-
+		this.fr.readFile("adminInfo.txt");
 		
 	}
 
 	@Test
 	void testViewGivenCourses() {
 		
-		//prof Greenberg test 
+		//tests using professor Greenberg
 		ArrayList<Courses> profGreenbergCourses = new ArrayList<Courses>();
 		
+		//test that correct number of courses are assigned to Greenberg
 		profGreenbergCourses = fr.getProfessorInfo().get(0).ViewGivenCourses(fr.getCourseInfo());
-		
 		assertEquals(2, profGreenbergCourses.size());
 		
-		//System.out.println(fr.getProfessorInfo().get(0));
-	
+		//tests using professor Krakowsky
+		ArrayList<Courses> profKrakowskyCourses = new ArrayList<Courses>();
+		
+		//test that correct number of courses are assigned to Krakowsky
+		profKrakowskyCourses = fr.getProfessorInfo().get(28).ViewGivenCourses(fr.getCourseInfo());
+		assertEquals(1, profKrakowskyCourses.size());
+		
 	}
 	
 	@Test
 	void testViewStudentListOfGivenCourse() {
 		
-		
+		//tests using professor Greenberg
 		Professor profGreenberg = fr.getProfessorInfo().get(0);
 		
+		//test that appropriate message displays when selecting wrong course
 		String studentsInCourse1 = profGreenberg.viewStudentListOfGivenCourse(fr, "CIT593");
-		//System.out.println(studentsInCourse1);
 		assertEquals("This course is not is your course list.", studentsInCourse1);
 		
+		//test that appropriate message displays when selecting correct course
 		String studentsInCourse2 = profGreenberg.viewStudentListOfGivenCourse(fr, "CIT592");
-		//System.out.println(studentsInCourse2);
 		assertEquals("Students in course CIT592 Mathematical Foundations of Computer Science:\n", studentsInCourse2);
 		
-		
+		//test adding student 1 to a correct course and appropriate message displays
 		Student student1 = fr.getStudentInfo().get(0);
 		student1.addCourse(fr, "CIT592");
 		String studentsInCourse3 = profGreenberg.viewStudentListOfGivenCourse(fr, "CIT592");
-		//System.out.println(studentsInCourse3);
 		assertEquals("Students in course CIT592 Mathematical Foundations of Computer Science:\n" + "001 StudentName1\n", studentsInCourse3);
 		
+		//test adding student 2 to a correct course and appropriate message displays
 		Student student2 = fr.getStudentInfo().get(1);
 		student2.addCourse(fr, "CIT592");
 		String studentsInCourse4 = profGreenberg.viewStudentListOfGivenCourse(fr, "CIT592");
-		//System.out.println(studentsInCourse4);
 		assertEquals("Students in course CIT592 Mathematical Foundations of Computer Science:\n" + "001 StudentName1\n" + "002 StudentName2\n", 
 				studentsInCourse4);
-		
-		
-		//one more test after admin adds a student 
 		
 	}
 

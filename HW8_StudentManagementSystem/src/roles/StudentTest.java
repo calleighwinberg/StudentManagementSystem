@@ -67,22 +67,19 @@ class StudentTest {
 		Student student2 = fr.getStudentInfo().get(1);
 		fr.getCourseInfo().get(0).setCourseCapacity("1");
 		assertFalse(student2.okToAddCourse(fr, "CIT590"));
-		
-		//student1.viewEnrolledCourses();
-
-		
-
 	}
 	
 	@Test
 	void testAddCourse() {
 		
-		//check adding two courses that are allowed. Students enrolled should be 1 for both
+		//test adding 2 courses for student 1
 		Student student1 = fr.getStudentInfo().get(0);
 		student1.addCourse(fr, "CIT590");
 		student1.addCourse(fr, "CIT591");
+		//check that enrollment number for each course increases by 1
 		assertEquals(1, fr.getCourseInfo().get(0).getNumStudentsEnrolled());
 		assertEquals(1, fr.getCourseInfo().get(1).getNumStudentsEnrolled());
+		//check that number of enrolled courses for student 1 equals 2
 		assertEquals(2, student1.getEnrolledCourses().size());
 		assertEquals(fr.getCourseInfo().get(0), student1.getEnrolledCourses().get(0));
 		
@@ -92,14 +89,22 @@ class StudentTest {
 		assertEquals("001", fr.getCourseInfo().get(0).getStudentsEnrolled().get(0).getId());
 
 		
-		//test adding another student and then check their info in course.getStudentsEnrolled 
+		//test adding 1 valid course for student 2
+		Student student2 = fr.getStudentInfo().get(1);
+		student2.addCourse(fr, "CIT592");
+		//check that enrollment number for course increases by 1
+		assertEquals(1, fr.getCourseInfo().get(2).getNumStudentsEnrolled());
+		//check that number of enrolled courses for student 2 equals 1
+		assertEquals(1, student2.getEnrolledCourses().size());
+		//check that adding a non-existant course does not increase student 2's enrolled courses size
+		student2.addCourse(fr, "CIT000");
+		assertEquals(1, student2.getEnrolledCourses().size());
 		
 	}
 	
 	@Test 
 	void testViewEnrolledCourses() {
-		
-		//i'm not sure how to test this one since all it does is print the enrolledCourses array 
+		//not tested as this method only displays to the console - it does not return a string
 	}
 	
 	
@@ -114,7 +119,8 @@ class StudentTest {
 		student1.addCourse(fr, "CIT591");
 		student1.addCourse(fr, "CIT592");
 		assertEquals(3, student1.getEnrolledCourses().size());
-		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(0)));		
+		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(0)));
+		
 		//Drop a course and confirm the number of courses == 2 and enrolledCourses no longer contains that course 
 		student1.dropCourse(fr, "CIT590");
 		assertEquals(2, student1.getEnrolledCourses().size());
@@ -126,11 +132,9 @@ class StudentTest {
 		//test dropping a course that is not in the enrolledCourses. The size of the array should not change 
 		student1.dropCourse(fr, "CI590");
 		assertEquals(2, student1.getEnrolledCourses().size());
+		
 		//enrolledCourses still contains both courses 
 		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(1)));
 		assertTrue(student1.getEnrolledCourses().contains(fr.getCourseInfo().get(2)));
 	}
-	
-	
-
 }
