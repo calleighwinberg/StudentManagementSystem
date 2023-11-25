@@ -1,3 +1,18 @@
+/*
+ * Name: Calleigh Winberg
+ * PennID: 18461248
+ * 
+ * Name: Andrew Vanderhorst 
+ * PennID: 60329193
+ * 
+ * Statement of work: We referenced geeksForGeeks, JavaDocs, Head First Java Third Ed., W3 Schools, Ed Discussion. 
+ * We received help from TA Justin Indelicato.
+ * 
+ * We included test files for each class excluding the Controller class because our Controller class only contains input/output.
+ */
+
+
+
 import files.FileInfoReader;
 
 import java.util.ArrayList;
@@ -329,10 +344,16 @@ public class Controller {
 				}
 			} else if(option.equals("5")) {
 				Map<String,String> courseAndGrade = student.getPastCoursesAndGrades(fr); //assign this students past courses and grades to map for displaying
-				System.out.println("Here are the courses you have already taken, with your grade in a letter format.");
-				//iterate for each entry in the map and display the course and grade
-				for (Map.Entry<String, String> entry : courseAndGrade.entrySet()) {
-					System.out.println("Grade of " + entry.getKey() + ": " + entry.getValue());
+				
+				if(courseAndGrade == null) {
+					System.out.println("You have no past grades.");
+				}
+				else {
+					System.out.println("Here are the courses you have already taken, with your grade in a letter format.");
+					//iterate for each entry in the map and display the course and grade
+					for (Map.Entry<String, String> entry : courseAndGrade.entrySet()) {
+						System.out.println("Grade of " + entry.getKey() + ": " + entry.getValue());
+					}
 				}	
 			} else if(option.equals("6")) {
 				studentViewRunning = false; //exit studentView and return to initial login menu
@@ -466,14 +487,29 @@ public class Controller {
 									pastCourses += pastCourseID + ": " + pastCourseGrade + ", "; //add validated course and grade to pastCourses string
 								}
 							}									
-						}						
-						pastCourses = pastCourses.substring(0, pastCourses.length()-2); //remove trailing comma in string
-						//create string with validated user input
-						String studentInfo = studentID + "; " + studentName + "; " + studentUsername + "; " + studentPassword + "; " + pastCourses;					
-						//call addStudent method in admin class with string and assign to local variable for displaying
-						Student student = admin.addStudent(fr, studentInfo); 				
-						System.out.println("Successfully added the new student: " + student);		
-						return student;					
+						}
+						
+						
+						if(pastCourses != "") {
+							
+							pastCourses = pastCourses.substring(0, pastCourses.length()-2); //remove trailing comma in string
+							//create string with validated user input
+							String studentInfo = studentID + "; " + studentName + "; " + studentUsername + "; " + studentPassword + "; " + pastCourses;	
+							//call addStudent method in admin class with string and assign to local variable for displaying
+							Student student = admin.addStudent(fr, studentInfo); 				
+							System.out.println("Successfully added the new student: " + student);		
+							return student;	
+						}
+						else {
+							
+							//create string with validated user input
+							String studentInfo = studentID + "; " + studentName + "; " + studentUsername + "; " + studentPassword;
+							//call addStudent method in admin class with string and assign to local variable for displaying
+							Student student = admin.addStudent(fr, studentInfo); 				
+							System.out.println("Successfully added the new student: " + student);		
+							return student;		
+						}
+															
 					}					
 				}
 			}	

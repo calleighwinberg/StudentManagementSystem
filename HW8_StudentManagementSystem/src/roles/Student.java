@@ -1,9 +1,13 @@
 package roles;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.junit.jupiter.api.Test;
 
 import courses.Courses;
 import files.FileInfoReader;
@@ -32,7 +36,16 @@ public class Student extends User {
 		
 		this.setPassword(array[3].trim());
 		
-		this.setPastCoursesAndGrades(array[4].trim());		
+		//in the case that the admin doesn't enter past grades, if have a try/catch to handle. 
+		try {
+			this.setPastCoursesAndGrades(array[4].trim());	
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			this.setPastCoursesAndGrades(null);
+		}
+		
+		
+		
 	}
 	
 	/**
@@ -138,6 +151,11 @@ public class Student extends User {
 	 * @return returns a HashMap of the past courses and their grades 
 	 */
 	public Map<String, String>  getPastCoursesAndGrades(FileInfoReader fr) {
+		
+		//if the string for past grades is null, return null
+		if(this.pastCoursesAndGrades == null) {
+			return null;
+		}
 		
 		//create a map to store the course ID/name and letter grade in 
 		Map<String, String> courseAndGrade = new HashMap<String, String>();

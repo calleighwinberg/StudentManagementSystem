@@ -25,6 +25,26 @@ class StudentTest {
 		this.fr.readFile("courseInfo.txt");
 		
 	}
+	
+	
+	@Test
+	void testStudentConstructor() {
+		
+		//test creating a new student and ensuring the variables save properly with whitespace 
+		Student student = new Student("000; Calleigh       ; student3; password000     ; CIT592:     F, CIT593: B");
+		assertEquals("000", student.getId());
+		assertEquals("Calleigh", student.getName());
+		assertEquals(2, student.getPastCoursesAndGrades(fr).size());
+		
+		
+		//test creating a new student with no past grades
+		Student student2 = new Student("004; Calleigh Winberg     ; student4; password000     ");
+		assertEquals("004", student2.getId());
+		assertEquals("Calleigh Winberg", student2.getName());
+		assertEquals(null, student2.getPastCoursesAndGrades(fr));
+		
+	}	
+	
 
 	@Test
 	void testGetPastCoursesAndGrades() {

@@ -56,7 +56,7 @@ public class Admin extends User {
 		return newCourse;		
 	}
 	
-	//IS THIS METHOD USED OR JUST THE ONE IN THE CONTROLLER CLASS?????
+
 	/**
 	 * Method to add a new student.
 	 * @param fr FileReaderInfo to read

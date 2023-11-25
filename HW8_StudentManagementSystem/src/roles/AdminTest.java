@@ -23,6 +23,20 @@ class AdminTest {
 		this.fr.readFile("courseInfo.txt");
 		
 	}
+	
+	@Test
+	void testAdminConstructor() {
+		
+		//test creating a new admin and ensuring the variables save properly with whitespace 
+		Admin admin = new Admin("000; Calleigh          ; admin00;             password000");
+		assertEquals("000", admin.getId());
+		assertEquals("Calleigh", admin.getName());
+		
+		//test checking the other variables in a new admin
+		Admin admin2 = new Admin("111; Testing; admin22; password999");
+		assertEquals("admin22", admin2.getUsername());
+		assertEquals("password999", admin2.getPassword());
+	}
 
 	@Test
 	void testAddCourse() {
@@ -67,12 +81,23 @@ class AdminTest {
 		
 	}
 	
-	//WILL CREATE TESTS IF THE ADMIN CLASS VERSION OF ADD STUDENT IS ACTUALLY USED.
+
 	@Test
 	void testAddStudent() {
 		Admin admin = fr.getAdminInfo().get(0);
 		//test having admin add a new student - array size should increase by one
 		assertEquals(2, fr.getStudentInfo().size());
+		
+		//test adding a new student 
+		Student student = admin.addStudent(fr, "003; StudentName3; testStudent03; password590; CIS000: F, CIS111: B");
+		assertEquals("003", student.getId());
+		assertEquals(3, fr.getStudentInfo().size());
+		
+		//test adding a new student without any grades
+		Student student2 = admin.addStudent(fr, "004; StudentName4; testStudent04; password590");
+		assertEquals(null, student2.getPastCoursesAndGrades(fr));
+		assertEquals(4, fr.getStudentInfo().size());
+		
 		
 	}
 	

@@ -75,17 +75,7 @@ public class Courses {
 		this.courseCapacity = courseCapacity;		
 	}
 	
-	
-	//SHOULD WE DELETE THIS????
-	/**
-	 * Method uses the given lecturerID to retrieve the lecturer.  
-	 * @param lecturerID
-	 * @return
-	 */
-	String retrieveCourseLecturer(int lecturerID) {
-		
-		return "";
-	}
+
 	
 	/**
 	 * Method checks for time conflict of given course

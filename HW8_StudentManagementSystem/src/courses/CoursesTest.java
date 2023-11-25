@@ -25,19 +25,50 @@ class CoursesTest {
 		this.fr.readFile("courseInfo.txt");
 		
 	}
+	
+	@Test
+	void testCourses() {
+		
+		//test creating a course and ensure ID and name match
+		Courses course1 = new Courses("     CIT000; Programming; Brandon L Krakowsky;         MW; 15:30; 17:00; 10");
+		assertEquals("CIT000", course1.getCourseID());
+		assertEquals("Programming", course1.getCourseName());
+		
+		//test creating a course and ensure porfessor and capacity match
+		Courses course2 = new Courses("CIT111; HTML; Calleigh Winberg; MW; 11:30; 13:00; 20");
+		assertEquals("Calleigh Winberg", course2.getCourseProfessor());
+		assertEquals("20", course2.getCourseCapacity());
+		
+	}
+	
+	@Test
+	void testCourses2ndConstructor() {
+		
+		//test creating a course and ensure ID and name match
+		Courses course1 = new Courses("CIT000", "Programming", "Brandon L Krakowsky", "MW", "15:30", "17:00", "10");
+		assertEquals("CIT000", course1.getCourseID());
+		assertEquals("Programming", course1.getCourseName());
+		
+		//test creating a course and ensure porfessor and capacity match
+		Courses course2 = new Courses("CIT111", "HTML", "Calleigh Winberg", "MW", "11:30", "13:00", "20");
+		assertEquals("Calleigh Winberg", course2.getCourseProfessor());
+		assertEquals("20", course2.getCourseCapacity());
+		
+	}
+	
 
 	@Test
 	void testSetCourseStart() {
 		
 		//test setting a course start time to something else 
 		Courses course1 = this.fr.getCourseInfo().get(0);
-		//System.out.println(course1);
-		//System.out.println(course1.getCourseStart());
 		assertEquals(1050, course1.setCourseStart("17:30"));
 		
-		
-		
+		//test that what is returned is an integer
+		Courses course2 = this.fr.getCourseInfo().get(0);
+		assertTrue(course2.setCourseStart("12:30") == 750);
 	}
+	
 	
 	@Test
 	void testGetCourseStart() {
@@ -49,6 +80,36 @@ class CoursesTest {
 		//test setting the course time to something different and then trying to Get it
 		course1.setCourseStart("17:30");
 		assertEquals("17:30", course1.getCourseStart());
+		
+		
+	}
+	
+	
+	@Test
+	void testSetCourseEnd() {
+		
+		//test setting a course start time to something else 
+		Courses course1 = this.fr.getCourseInfo().get(0);
+		assertEquals(1050, course1.setCourseEnd("17:30"));
+		
+		//test that what is returned is an integer
+		Courses course2 = this.fr.getCourseInfo().get(0);
+		assertTrue(course2.setCourseEnd("12:30") == 750);
+		
+		
+		
+	}
+	
+	@Test
+	void testGetCourseEnd() {
+		
+		//test that the getCourseEnd returns a string 
+		Courses course1 = this.fr.getCourseInfo().get(0);
+		assertEquals("18:00", course1.getCourseEnd());
+		
+		//test setting the course time to something different and then trying to Get it
+		course1.setCourseEnd("17:30");
+		assertEquals("17:30", course1.getCourseEnd());
 		
 		
 	}
