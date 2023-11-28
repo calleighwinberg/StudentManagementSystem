@@ -103,8 +103,12 @@ public class FileInfoReader {
 					
 					//add the professor to the professorInfo array
 					adminInfo.add(admin);
-				}				
-			}			
+				}			
+			}
+			
+			fileReader.close();
+			bufferedReader.close();
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
